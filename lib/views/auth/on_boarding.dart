@@ -139,3 +139,13 @@ class _Model {
 
   _Model({required this.title, required this.subtitle, required this.img});
 }
+
+
+
+// vcs
+// git init  pull  remote local - working directory
+// Repo
+// push  commit
+// collaborator
+// clone
+
