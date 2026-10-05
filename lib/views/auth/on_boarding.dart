@@ -19,7 +19,7 @@ class _OnBoardingViewState extends State<OnBoardingView> {
 
   int currentPage = 0;
   final controller = PageController(initialPage: 0);
-
+//mostfa saad
   @override
   Widget build(BuildContext context) {
     return Scaffold(
