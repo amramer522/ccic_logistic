@@ -15,7 +15,7 @@ class LoginCubit extends Cubit<LoginStates> {
   final passwordController = TextEditingController();
 
   bool isPasswordHidden = true;
-
+//hello amr
   void togglePassword() {
     isPasswordHidden = !isPasswordHidden;
     emit(LoginTogglePasswordState());

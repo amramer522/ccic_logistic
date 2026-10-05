@@ -44,7 +44,6 @@ class DioHelper {
     }
   }
 }
-// hello amr
 class CustomResponse {
   final bool isSuccess;
   final dynamic data;
