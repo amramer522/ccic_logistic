@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:lottie/lottie.dart';
+
+import '../core/logic/notification_helper.dart';
 
 class TestNotificationsView extends StatefulWidget {
   const TestNotificationsView({super.key});
@@ -8,44 +11,47 @@ class TestNotificationsView extends StatefulWidget {
   State<TestNotificationsView> createState() => _TestNotificationsViewState();
 }
 
-class _TestNotificationsViewState extends State<TestNotificationsView> {
-  final localNotify = FlutterLocalNotificationsPlugin();
-
-  Future<void> init() async {
-    await localNotify.initialize(settings: InitializationSettings(
-      android: AndroidInitializationSettings("@drawable/ic_notify")
-    ));
-    await localNotify
-        .resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>()
-        ?.requestNotificationsPermission();
-  }
+class _TestNotificationsViewState extends State<TestNotificationsView>
+    with SingleTickerProviderStateMixin {
+  final helper = NotificationHelper();
+  late AnimationController animationController;
 
   @override
   void initState() {
     super.initState();
-    init();
+    helper.init();
+    animationController = AnimationController(vsync: this,duration: Duration(seconds: 1));
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
+      body: Center(
+        child: GestureDetector(
+          onTap: () {
+            print('Click animationController.isCompleted ${animationController.isCompleted}');
+            if(animationController.isCompleted)
+              {
+                animationController.reverse();
+              }else
+                {
+                  animationController.forward();
+                }
+
+
+
+          },
+          child: Lottie.asset(
+            'assets/lotties/switch.json',
+            controller: animationController,
+          ),
+        ),
+      ),
+
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          localNotify.show(
-            id: 1,
-            title: "Hello",
-            body: "How are you?",
-            notificationDetails: NotificationDetails(
-              android: AndroidNotificationDetails(
-                "general",
-                "General",
-                color: Color(0xff0c3e0b),
-                icon: '@drawable/ic_notify',
-                importance: Importance.max,
-                priority: Priority.high,
-              ),
-            ),
-          );
+          helper.show("Hello", "How are you?");
         },
         child: Icon(Icons.notifications),
       ),

@@ -47,6 +47,7 @@ class _MyAppState extends State<MyApp> {
           localizationsDelegates: context.localizationDelegates,
           supportedLocales: context.supportedLocales,
           locale: context.locale,
+          title: "Growfet",
           navigatorKey: navKey,
           home: TestNotificationsView(),
           // home: prefs.getBool('isLogin') == true ? PlayView() : PlayView(),
@@ -101,6 +102,18 @@ class _MyAppState extends State<MyApp> {
     );
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
 
 // MaterialApp
 // Scaffold
