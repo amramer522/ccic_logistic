@@ -20,6 +20,13 @@ dependencies:
   video_player: ^2.14.0
   youtube_player_flutter: ^10.0.1
   flutter_bloc: ^9.1.1
+  easy_localization: ^3.0.8
+  google_maps_flutter: ^2.18.1
+  geolocator: ^14.1.1
+  geocoding: ^5.0.0
+  file_picker: ^13.1.0
+  audioplayers: ^6.8.1
+  flutter_local_notifications: ^22.3.2
 
 
 dev_dependencies:
@@ -33,6 +40,7 @@ flutter:
   assets:
     - assets/images/
     - assets/icons/
+    - assets/langs/
 
   # To add assets to your application, add an assets section, like this:
   # assets:

@@ -1,16 +1,32 @@
 import 'package:ccic_g1_2026_flutter/views/auth/login/view.dart';
+import 'package:ccic_g1_2026_flutter/views/play/view.dart';
+import 'package:ccic_g1_2026_flutter/views/play2.dart';
+import 'package:ccic_g1_2026_flutter/views/test_notifications.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_maps_flutter_platform_interface/google_maps_flutter_platform_interface.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'core/logic/helper_methods.dart';
+import 'package:google_maps_flutter_android/google_maps_flutter_android.dart';
 
 late SharedPreferences prefs;
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await EasyLocalization.ensureInitialized();
   await ScreenUtil.ensureScreenSize();
   prefs = await SharedPreferences.getInstance();
 
-  runApp(MyApp());
+  runApp(
+    EasyLocalization(
+      supportedLocales: [Locale('en'), Locale('ar'),Locale('fr')],
+      path: 'assets/langs',
+      startLocale: Locale('en'),
+      fallbackLocale: Locale('en'),
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatefulWidget {
@@ -28,8 +44,12 @@ class _MyAppState extends State<MyApp> {
       builder: (_, child) {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
+          localizationsDelegates: context.localizationDelegates,
+          supportedLocales: context.supportedLocales,
+          locale: context.locale,
           navigatorKey: navKey,
-          home: prefs.getBool('isLogin') == true ? LoginView() : LoginView(),
+          home: TestNotificationsView(),
+          // home: prefs.getBool('isLogin') == true ? PlayView() : PlayView(),
           // themeMode: isLight == null
           //     ? ThemeMode.system
           //     : isLight == true

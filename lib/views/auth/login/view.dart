@@ -3,12 +3,14 @@ import 'package:ccic_g1_2026_flutter/core/logic/helper_methods.dart';
 import 'package:ccic_g1_2026_flutter/views/auth/login/cubit.dart';
 import 'package:ccic_g1_2026_flutter/views/auth/login/states.dart';
 import 'package:dio/dio.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../main.dart';
 import '../../home/view.dart';
+
 // hello
 class LoginView extends StatefulWidget {
   @override
@@ -46,10 +48,23 @@ class _LoginViewState extends State<LoginView> {
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         SizedBox(height: 57),
-                        Image.asset('assets/images/logo.png', height: 54, width: 162),
+                        GestureDetector(
+                          child: Image.asset(
+                            'assets/images/logo.png',
+                            height: 54,
+                            width: 162,
+                          ),
+                          onTap: () {
+                            if (context.locale.languageCode == 'en') {
+                              context.setLocale(Locale('ar'));
+                            } else {
+                              context.setLocale(Locale('en'));
+                            }
+                          },
+                        ),
                         SizedBox(height: 24),
                         Text(
-                          'Log In',
+                          'login'.tr(),
                           style: TextStyle(
                             fontSize: 24,
                             fontWeight: FontWeight.bold,
@@ -58,7 +73,7 @@ class _LoginViewState extends State<LoginView> {
                         ),
                         SizedBox(height: 10),
                         Text(
-                          'Enter your email and password to log in ',
+                          'loginHint'.tr(),
                           style: TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.w500,
@@ -81,17 +96,17 @@ class _LoginViewState extends State<LoginView> {
                         ),
                         SizedBox(height: 16),
                         BlocBuilder(
-                            bloc: cubit,
-                            buildWhen: (previous, current) =>
-                            current is LoginTogglePasswordState,
-                            builder: (context,state) {
+                          bloc: cubit,
+                          buildWhen: (previous, current) =>
+                              current is LoginTogglePasswordState,
+                          builder: (context, state) {
                             return TextFormField(
                               controller: cubit.passwordController,
                               obscureText: cubit.isPasswordHidden,
                               obscuringCharacter: "*",
                               decoration: InputDecoration(
                                 labelText: "PASSWORD",
-                                hintText: 'Enter your password',
+                                hintText: "passwordHint".tr(),
                                 suffixIcon: Row(
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
@@ -121,7 +136,7 @@ class _LoginViewState extends State<LoginView> {
                                 ),
                               ),
                             );
-                          }
+                          },
                         ),
                         SizedBox(height: 24),
                         BlocBuilder(
@@ -144,7 +159,7 @@ class _LoginViewState extends State<LoginView> {
                                       state is LoginLoadingState
                                   ? null
                                   : cubit.login,
-                              label: Text("Login"),
+                              label: Text("login".tr()),
                             );
                           },
                         ),

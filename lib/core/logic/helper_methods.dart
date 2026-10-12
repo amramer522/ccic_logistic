@@ -20,3 +20,17 @@ void goTo({required Widget page, bool keepHistory = true, int? seconds}) {
     });
   }
 }
+
+void showMsg(String msg) {
+  ScaffoldMessenger.of(navKey.currentContext!).showSnackBar(
+    SnackBar(
+      backgroundColor: Colors.red,
+      content: Text(msg, style: TextStyle(fontSize: 20)),
+      duration: Duration(seconds: 3),
+      padding: EdgeInsets.all(16),
+      behavior: SnackBarBehavior.floating,
+      margin: EdgeInsets.all(16),
+      showCloseIcon: true,
+    ),
+  );
+}
